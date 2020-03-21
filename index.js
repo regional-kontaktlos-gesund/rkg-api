@@ -24,10 +24,6 @@ app.get('/', function (req, res) {
 const vendorsRouter = require('./routes/vendors')
 app.use('/api/vendors', vendorsRouter)
 
-// routes for products
-const productsRouter = require('./routes/products')
-app.use('/api/products', productsRouter)
-
 // routes for stores
 const storesRouter = require('./routes/stores')
 app.use('/api/stores', storesRouter)

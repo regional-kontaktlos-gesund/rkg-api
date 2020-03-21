@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
+const Product = require('./product').schema 
+
 const OpeningHourSchema = new mongoose.Schema({
   day: {
     type: String,
@@ -38,12 +40,7 @@ const storeSchema = new mongoose.Schema({
     stripeAccountId: {
       type: String
     },
-    products: [
-      {
-       type: Schema.Types.ObjectId, 
-       ref: 'Product' 
-      }
-    ],
+    products: [Product],
     openingHours: [OpeningHourSchema],
     currentlyOpen: {
       type: Boolean,

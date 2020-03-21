@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Order = require('../models/order')
+const Store = require('../models/store')
 
 // get all orders
 router.get('/', async (req, res) => {
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
     items: req.body.items,
     store: req.body.store,
     code: generateCode(),
-    sumTotal: calculatePrice(req.body.items),
+    sumTotal: await calculatePrice(req.body.items, req.body.store),
   })
 
   try {
@@ -66,9 +67,18 @@ function generateCode() {
   return "corvid-19"
 }
 
-//TODO: calculate order sum
-function calculatePrice(items) {
-  return 240;
+async function calculatePrice(items, store_id) {
+  let sum = 0;
+  store = await Store.findById(store_id)
+  console.log(store)
+  if (store != null) {
+    items.forEach(item => {
+      product = store.products.id(item.product)
+      let positionPrice = product.price * item.amount
+      sum += positionPrice
+    });
+  }
+  return sum;
 }
 
 module.exports = router

@@ -12,11 +12,11 @@ Content-Type: application/json
 {
   "items":[
     {
-      "product": "5e762f972b613f86458899bc",
+      "product": "5e7660751a3f5eb1b025075d",
       "amount": "10"
     },
     {
-      "product": "5e762fa62b613f86458899bd",
+      "product": "5e7670c0e35d55c5893fb783",
       "amount": "5"
     }
   ],

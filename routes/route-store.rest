@@ -2,6 +2,14 @@ GET http://localhost:5000/api/stores
 
 ###
 
+GET http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products
+
+###
+
+DELETE http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products/5e7660751a3f5eb1b025075c
+
+###
+
 GET http://localhost:5000/api/stores/5e7637033530e88ed953fd1c
 
 ###
@@ -18,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/stores/5e761ba5385b4a71b6b9f295
+DELETE http://localhost:5000/api/stores/5e764c0be18e3fa11b445c15
 
 
 ###
@@ -27,9 +35,32 @@ PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c
 Content-Type: application/json
 
 {
-  "name": "Hofladen2",
-  "currentlyOpen" : true,
+  "vendor": "5e761984ebd80d6f7c8d4990",
+  "currentlyOpen" : false,
   "openingHours": [
     {"day": "monday", "from": "12", "to": "16"}
   ]
+}
+
+###
+
+PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products/5e7660751a3f5eb1b025075d
+Content-Type: application/json
+
+{
+      "name": "Gelber Spargel"
+}
+
+###
+
+PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products
+Content-Type: application/json
+
+{
+      "name": "Schale saure Erdbeeren",
+      "type": "Erdbeere",
+      "unit": "250g",
+      "price": "250",
+      "stock": "full",
+      "imageUrl": "https://images.pexels.com/photos/583840/pexels-photo-583840.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
 }

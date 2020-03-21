@@ -19,7 +19,7 @@ router.get('/:id', getVendor, (req, res) => {
 })
 
 // create one vendor
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   const vendor = new Vendor({
     name: req.body.name,
     email: req.body.email

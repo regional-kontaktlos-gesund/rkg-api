@@ -7,7 +7,12 @@ const Product = require('../models/product')
 // get all stores
 router.get('/', async (req, res) => {
   try {
-    const stores = await Store.find()
+    let stores
+    if (req.query.vendor != null) {
+      stores = await Store.find({ vendor : req.query.vendor })
+    } else {
+      stores = await Store.find() 
+    }
     res.json(stores)
   } catch (err) {
     res.status(500).json({ message: err.message })

@@ -6,7 +6,7 @@ GET http://localhost:5000/api/vendors/5e7627ebe87c1a7af2f09758
 
 ###
 
-POST http://localhost:5000/api/vendors
+POST http://localhost:5000/api/vendors/signup
 Content-Type: application/json
 
 {

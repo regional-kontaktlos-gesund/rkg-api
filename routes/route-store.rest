@@ -1,5 +1,4 @@
 GET http://localhost:5000/api/stores
-
 ###
 
 GET http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products

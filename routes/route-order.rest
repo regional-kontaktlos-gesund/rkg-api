@@ -1,0 +1,28 @@
+GET http://localhost:5000/api/orders
+
+###
+
+GET http://localhost:5000/api/orders/5e7637033530e88ed953fd1c
+
+###
+
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+
+{
+  "items":[
+    {
+      "product": "5e762f972b613f86458899bc",
+      "amount": "10"
+    },
+    {
+      "product": "5e762fa62b613f86458899bd",
+      "amount": "5"
+    }
+  ],
+  "store": "5e7637033530e88ed953fd1c" 
+}
+
+###
+
+DELETE http://localhost:5000/api/orders/5e764867e7cd639c4a36b7ec

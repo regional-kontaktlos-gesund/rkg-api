@@ -32,6 +32,10 @@ app.use('/api/products', productsRouter)
 const storesRouter = require('./routes/stores')
 app.use('/api/stores', storesRouter)
 
+// routes for orders
+const ordersRouter = require('./routes/orders')
+app.use('/api/orders', ordersRouter)
+
 // run app
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

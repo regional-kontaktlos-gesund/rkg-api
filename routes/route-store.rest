@@ -27,5 +27,9 @@ PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c
 Content-Type: application/json
 
 {
-  "opened" : true
+  "name": "Hofladen2",
+  "opened" : true,
+  "openingHours": [
+    {"day": "monday", "from": "12", "to": "16"}
+  ]
 }

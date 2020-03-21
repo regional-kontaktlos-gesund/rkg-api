@@ -36,10 +36,19 @@ router.post('/', async (req, res) => {
 })
 
 // Updating one store
-// TODO: Add additional store fields
+// TODO: Update additional store fields: longitude, latitude, stripeAccountId, products
 router.patch('/:id', getStore, async (req, res) => {
+  if (req.body.name != null) {
+    res.store.name = req.body.name
+  }
+  if (req.body.owner != null) {
+    res.store.owner = req.body.owner
+  }
   if (req.body.opened != null) {
     res.store.opened = req.body.opened
+  }
+  if (req.body.openingHours != null) {
+    res.store.openingHours = req.body.openingHours
   }
   try {
     const updatedStore = await res.store.save()

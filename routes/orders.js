@@ -70,7 +70,6 @@ function generateCode() {
 async function calculatePrice(items, store_id) {
   let sum = 0;
   store = await Store.findById(store_id)
-  console.log(store)
   if (store != null) {
     items.forEach(item => {
       product = store.products.id(item.product)

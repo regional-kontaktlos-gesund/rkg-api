@@ -28,6 +28,13 @@ app.use('/api/vendors', vendorsRouter)
 const productsRouter = require('./routes/products')
 app.use('/api/products', productsRouter)
 
+// routes for stores
+const storesRouter = require('./routes/stores')
+app.use('/api/stores', storesRouter)
+
+// routes for orders
+const ordersRouter = require('./routes/orders')
+app.use('/api/orders', ordersRouter)
 
 // run app
 const PORT = process.env.PORT || 5000;

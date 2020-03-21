@@ -10,11 +10,10 @@ Content-Type: application/json
 
 {
   "name": "Erdbeeren",
-  "type": "Frucht",
+  "type": "Erdbeere",
   "unit": "500g",
   "price": "250",
-  "stock": "40",
-  "imageUrl": "https://img.utopia.de/bnJtP2gBoMCKfnEBboliJrAMZAc=/640x300/https://utopia.de/app/uploads/2019/07/erdbeere-schimmel-cc0-pixabay-anaterate-190705-1.jpg"
+  "stock": "full"
 }
 
 
@@ -33,6 +32,5 @@ Content-Type: application/json
   "type": "Frucht",
   "amount": "250g",
   "price": 150,
-  "stock": 30,
-  "imageurl": "https://img.utopia.de/bnJtP2gBoMCKfnEBboliJrAMZAc=/640x300/https://utopia.de/app/uploads/2019/07/erdbeere-schimmel-cc0-pixabay-anaterate-190705-1.jpg"
+  "stock": "none",
 }

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Store = require('../models/store')
+const Product = require('../models/product')
 
 // get all stores
 router.get('/', async (req, res) => {
@@ -18,11 +19,16 @@ router.get('/:id', getStore, (req, res) => {
   res.json(res.store)
 })
 
+// getting all products for one store
+router.get('/:id/products', getStore, (req, res) => {
+  res.json(res.store.products)
+})
+
 // create one store
 router.post('/', async (req, res) => {
   const store = new Store({
     name: req.body.name,
-    owner: req.body.owner,
+    vendor: req.body.vendor,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
   })
@@ -35,30 +41,60 @@ router.post('/', async (req, res) => {
   }
 })
 
-// Updating one store
-// TODO: Update additional store fields: longitude, latitude, stripeAccountId, products
-router.patch('/:id', getStore, async (req, res) => {
-  if (req.body.name != null) {
-    res.store.name = req.body.name
-  }
-  if (req.body.owner != null) {
-    res.store.owner = req.body.owner
-  }
-  if (req.body.opened != null) {
-    res.store.opened = req.body.opened
-  }
-  if (req.body.openingHours != null) {
-    res.store.openingHours = req.body.openingHours
-  }
+
+// add one product for one store
+router.patch('/:id/products', getStore, async (req, res) => {
+  const product = new Product({
+    name: req.body.name,
+    type: req.body.type,
+    unit: req.body.unit,
+    price: req.body.price,
+    stock: req.body.stock,
+    imageUrl: req.body.imageUrl,
+  })
+  
   try {
+    await res.store.products.push(product)
     const updatedStore = await res.store.save()
     res.json(updatedStore)
-  } catch {
+  } catch(err) {
     res.status(400).json({ message: err.message })
   }
 })
 
-// delete one store
+// Updating one store
+router.patch('/:id', getStore, async (req, res) => {
+  if (req.body.name != null) {
+    res.store.name = req.body.name
+  }
+  if (req.body.vendor != null) {
+    res.store.vendor = req.body.vendor
+  }
+  if (req.body.currentlyOpen != null) {
+    res.store.currentlyOpen = req.body.currentlyOpen
+  }
+  if (req.body.openingHours != null) {
+    res.store.openingHours = req.body.openingHours
+  }
+  if (req.body.longitude != null) {
+    res.store.longitude = req.body.longitude
+  }
+  if (req.body.latitude != null) {
+    res.store.latitude = req.body.latitude
+  }
+  if (req.body.stripeAccountId != null) {
+    res.store.stripeAccountId = req.body.stripeAccountId
+  }
+  
+  try {
+    const updatedStore = await res.store.save()
+    res.json(updatedStore)
+  } catch(err) {
+    res.status(400).json({ message: err.message })
+  }
+})
+
+// Delete one store
 router.delete('/:id', getStore, async (req, res) => {
   try {
     await res.store.remove()
@@ -67,6 +103,50 @@ router.delete('/:id', getStore, async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
+
+// delete one product from one store
+router.delete('/:id/products/:productID', getStore, async (req, res) => {
+  try {  
+    product = await res.store.products.id(req.params.productID)
+    product.remove();
+    res.store.save();
+    res.json({ message: 'Deleted This Product' })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+ 
+// update one product from one store
+router.patch('/:id/products/:productID', getStore, async (req, res) => {
+  try {
+    product = await res.store.products.id(req.params.productID)
+  
+    if (req.body.name != null) {
+      product.name = req.body.name
+    }
+    if (req.body.type != null) {
+      product.type = req.body.type
+    }
+    if (req.body.unit != null) {
+      product.unit = req.body.unit
+    }
+    if (req.body.price != null) {
+      product.price = req.body.price
+    }
+    if (req.body.stock != null) {
+      product.stock = req.body.stock
+    }
+    if (req.body.imageUrl != null) {
+      product.imageUrl = req.body.imageUrl
+    }
+
+    res.store.save()
+    res.json({ message: 'Updated This Product' })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 
 // Middleware function for gettig store object by ID
 async function getStore(req, res, next) {

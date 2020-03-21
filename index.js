@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 // routes for vendors
 const vendorsRouter = require('./routes/vendors')
-app.use('/vendors', vendorsRouter)
+app.use('/api/vendors', vendorsRouter)
 
 
 // run app

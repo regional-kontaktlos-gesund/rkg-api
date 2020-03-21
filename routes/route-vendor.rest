@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/vendors?apitoken=corvid-19
+GET http://localhost:5000/api/vendors
 
 ###
 

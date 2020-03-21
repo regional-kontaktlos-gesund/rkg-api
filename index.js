@@ -24,6 +24,10 @@ app.get('/', function (req, res) {
 const vendorsRouter = require('./routes/vendors')
 app.use('/api/vendors', vendorsRouter)
 
+// routes for products
+const productsRouter = require('./routes/products')
+app.use('/api/products', productsRouter)
+
 
 // run app
 const PORT = process.env.PORT || 5000;

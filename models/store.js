@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const OpeningHourSchema = new mongoose.Schema({
   day: {
     type: String,
-    enum : ['monday','truesday','wednesday','thirsday','friday','saturday','sunday','holiday'],
+    enum: ['monday','truesday','wednesday','thirsday','friday','saturday','sunday','holiday'],
     required: true
   },
   from: {
@@ -22,7 +22,7 @@ const storeSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    owner: { 
+    vendor: { 
       type: Schema.Types.ObjectId, 
       ref: 'Vendor', 
       required: true 
@@ -45,7 +45,7 @@ const storeSchema = new mongoose.Schema({
       }
     ],
     openingHours: [OpeningHourSchema],
-    opened: {
+    currentlyOpen: {
       type: Boolean,
     }
   })

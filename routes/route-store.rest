@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
   "name": "Hofladen",
-  "owner": "5e761984ebd80d6f7c8d4990",
+  "vendor": "5e761984ebd80d6f7c8d4990",
   "latitude": "123.0432",
   "longitude": "126.3432"
 }
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "name": "Hofladen2",
-  "opened" : true,
+  "currentlyOpen" : true,
   "openingHours": [
     {"day": "monday", "from": "12", "to": "16"}
   ]

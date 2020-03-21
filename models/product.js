@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   },
   type: {
     type: String,
+    enum: ["Erdbeere", "Spargel"],
     required: true
   },
   unit: {

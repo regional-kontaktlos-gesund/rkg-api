@@ -22,7 +22,7 @@ router.get('/:id', getStore, (req, res) => {
 router.post('/', async (req, res) => {
   const store = new Store({
     name: req.body.name,
-    owner: req.body.owner,
+    vendor: req.body.vendor,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
   })
@@ -41,11 +41,11 @@ router.patch('/:id', getStore, async (req, res) => {
   if (req.body.name != null) {
     res.store.name = req.body.name
   }
-  if (req.body.owner != null) {
-    res.store.owner = req.body.owner
+  if (req.body.vendor != null) {
+    res.store.vendor = req.body.vendor
   }
-  if (req.body.opened != null) {
-    res.store.opened = req.body.opened
+  if (req.body.currentlyOpen != null) {
+    res.store.currentlyOpen = req.body.currentlyOpen
   }
   if (req.body.openingHours != null) {
     res.store.openingHours = req.body.openingHours

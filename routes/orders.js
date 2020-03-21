@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const checkJwt = require('../auth0')
+
 var fs = require("fs");
 var text = fs.readFileSync("./resources/words.txt").toString('utf-8');
 var textByLine = text.split("\n")
@@ -9,7 +11,7 @@ const Order = require('../models/order')
 const Store = require('../models/store')
 
 // get all orders
-router.get('/', async (req, res) => {
+router.get('/', checkJwt, async (req, res) => {
   try {
     const orders = await Order.find()
     res.json(orders)
@@ -19,7 +21,7 @@ router.get('/', async (req, res) => {
 })
 
 // getting one order
-router.get('/:id', getOrder, (req, res) => {
+router.get('/:id', checkJwt, getOrder, (req, res) => {
   res.json(res.order)
 })
 
@@ -41,7 +43,7 @@ router.post('/', async (req, res) => {
 })
 
 // delete one order
-router.delete('/:id', getOrder, async (req, res) => {
+router.delete('/:id', checkJwt, getOrder, async (req, res) => {
   try {
     await res.order.remove()
     res.json({ message: 'Deleted This Order' })

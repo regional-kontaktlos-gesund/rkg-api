@@ -4,11 +4,14 @@ const path = require('path')
 var express = require('express');
 var app = express();
 
-app.use(express.json())
+const checkJwt = require('./auth0')
 
+// register middlewares
+app.use(checkJwt);
+app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
-
+//mongoose stuff
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection

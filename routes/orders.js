@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+var fs = require("fs");
+var text = fs.readFileSync("./resources/words.txt").toString('utf-8');
+var textByLine = text.split("\n")
+
 const Order = require('../models/order')
 const Store = require('../models/store')
 
@@ -62,9 +66,13 @@ async function getOrder(req, res, next) {
 }
 
 
-//TODO: create random code
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 function generateCode() {
-  return "corvid-19"
+  let codeword = textByLine[getRandomInt(textByLine.length)] + " " + textByLine[getRandomInt(textByLine.length)]
+  return codeword
 }
 
 async function calculatePrice(items, store_id) {

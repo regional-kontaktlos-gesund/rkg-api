@@ -1,0 +1,30 @@
+GET http://localhost:5000/api/vendors
+
+###
+
+GET http://localhost:5000/api/vendors/5e7627ebe87c1a7af2f09758
+
+###
+
+POST http://localhost:5000/api/vendors
+Content-Type: application/json
+
+{
+  "name": "Robert Huber",
+  "email": "r.huber@example.com"
+}
+
+###
+
+DELETE http://localhost:5000/api/vendors/5e761ba5385b4a71b6b9f295
+
+
+###
+
+PATCH http://localhost:5000/api/vendors/5e761984ebd80d6f7c8d4990
+Content-Type: application/json
+
+{
+  "name": "Robert Huber2",
+  "email": "r.huber2@example.com"
+}

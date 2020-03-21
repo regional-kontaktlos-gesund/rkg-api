@@ -2,18 +2,20 @@ require('dotenv').config()
 const path = require('path')
 
 var express = require('express');
+var cors = require('cors')
 var app = express();
 
 app.use(express.json())
-
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
-
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to database'))
+
+app.options('*', cors()) // include before other routes
 
 // basic GET route
 app.get('/', function (req, res) {

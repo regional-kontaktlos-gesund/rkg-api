@@ -17,10 +17,10 @@ POST http://localhost:5000/api/stores
 Content-Type: application/json
 
 {
-  "name": "Hofladen",
+  "name": "Hofladen Sonne",
   "vendor": "5e761984ebd80d6f7c8d4990",
-  "latitude": "123.0432",
-  "longitude": "126.3432"
+  "latitude": "52.520008",
+  "longitude": "13.404954"
 }
 
 ###

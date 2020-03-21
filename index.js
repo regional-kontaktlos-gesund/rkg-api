@@ -1,9 +1,13 @@
 require('dotenv').config()
+const path = require('path')
 
 var express = require('express');
 var app = express();
 
 app.use(express.json())
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })

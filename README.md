@@ -1,15 +1,16 @@
-# Requirements
+## Requirements
 
-* node.js installation (recommended 12.16)
-* a local or remote mongoDB database
+- Node.js version 12.16 or later
+- A local/remote mongoDB Database installation
 
-# How to run
+## How to run locally
 
-* clone the repo
-* npm install
-* copy file '.env.dist' to '.env'
-* npm start
+1. clone the repo
+2. run: `npm install`
+3. copy file `.env.dist` and rename it to ` .env `
+4. configure your database credentials in file ` .env`
+5. run: `npm start`
 
-# Deployment 
+## Deployment 
 
-* Pull requests auf master werden automatisch auf heroku deployed: https://rkg-api-602.herokuapp.com/
+Pull requests on master branch are automatically deployed to heroku: https://rkg-api-602.herokuapp.com/

@@ -2,12 +2,14 @@ require('dotenv').config()
 const path = require('path')
 
 var express = require('express');
+var cors = require('cors')
 var app = express();
 
 const checkJwt = require('./auth0')
 
 // register middlewares
 app.use(express.json())
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //mongoose stuff
@@ -16,6 +18,8 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTo
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('✅ Connected to database'))
+
+app.options('*', cors()) // include before other routes
 
 // basic GET route
 app.get('/', function (req, res) {

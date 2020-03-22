@@ -19,9 +19,26 @@ router.get('/', async (req, res) => {
   }
 })
 
-// getting one order
-router.get('/:id', getOrder, (req, res) => {
-  res.json(res.order)
+// getting one order (including nested product information)
+router.get('/:id', getOrder, async (req, res) => {
+  order = res.order
+  newItems = []
+  for (const item of order.items) {
+      store = await Store.findById(order.store)
+      newProduct = await store.products.id(item.product)
+      newItem = {
+        product: newProduct, 
+        amount: item.amount
+      }
+      newItems.push(newItem)
+  };
+  const newOrder = {
+    items: newItems,
+    store: order.store,
+    code: order.code,
+    sumTotal: order.sumTotal
+  }
+  res.json(newOrder)
 })
 
 // create one order

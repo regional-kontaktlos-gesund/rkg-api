@@ -5,7 +5,8 @@ var express = require('express');
 var cors = require('cors')
 var app = express();
 
-const checkJwt = require('./auth0')
+const checkJwt = require('./middlewares/auth0')
+const checkUser = require('./middlewares/checkUser')
 
 // register middlewares
 app.use(express.json())
@@ -27,34 +28,8 @@ app.get('/', function (req, res) {
 });
 
 // test route for user-profile
-app.get('/api/userprofile', checkJwt, function (req, res) {
-
-  let authtoken = req.headers.authorization.replace("Bearer ", "")
-  let userData
-
-  console.log(req.user)
-
-  var AuthenticationClient = require('auth0').AuthenticationClient;
-
-  var auth0 = new AuthenticationClient({
-    domain: process.env.AUTH0_DOMAIN,
-    clientId: process.env.AUTH0_CLIENT_ID
-  });
-
-  auth0.getProfile(authtoken, function (err, userInfo) {
-    if (err) {
-      console.log(err.message)
-    }    
-    console.log(userInfo)
-    userData = userInfo
-  });
-  console.log("userdata", userData)
-  if (userData == "Unauthorized") {
-    res.status(401).json({ message: userData })
-  } else {
-    res.status(200).json({ message: userData })
-  }
-  
+app.get('/api/userprofile', checkUser, function (req, res) {
+    res.status(200).json({ message: "you are a user" })
 });
 
 // test route for authentication

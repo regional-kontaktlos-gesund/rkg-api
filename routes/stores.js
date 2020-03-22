@@ -44,6 +44,8 @@ router.get('/:id/products', getStore, (req, res) => {
 
 // create one store
 router.post('/', async (req, res) => {
+  //TODO: use req.body.userId to fetch correct vendor-id for the authenticated user
+
   const store = new Store({
     name: req.body.name,
     vendor: req.body.vendor,
@@ -61,7 +63,10 @@ router.post('/', async (req, res) => {
 
 
 // add one product for one store
-router.patch('/:id/products', getStore, async (req, res) => {
+router.patch('/:id/products', getUserStore, async (req, res) => {
+  
+  //TODO: use req.body.userId to fetch correct vendor-id for the authenticated user
+
   const product = new Product({
     name: req.body.name,
     type: req.body.type,
@@ -81,7 +86,7 @@ router.patch('/:id/products', getStore, async (req, res) => {
 })
 
 // Updating one store
-router.patch('/:id', getStore, async (req, res) => {
+router.patch('/:id', getUserStore, async (req, res) => {
   if (req.body.name != null) {
     res.store.name = req.body.name
   }
@@ -110,7 +115,7 @@ router.patch('/:id', getStore, async (req, res) => {
 })
 
 // Delete one store
-router.delete('/:id', getStore, async (req, res) => {
+router.delete('/:id', getUserStore, async (req, res) => {
   try {
     await res.store.remove()
     res.json({ message: 'Deleted This Store' })
@@ -120,7 +125,7 @@ router.delete('/:id', getStore, async (req, res) => {
 })
 
 // delete one product from one store
-router.delete('/:id/products/:productID', getStore, async (req, res) => {
+router.delete('/:id/products/:productID', getUserStore, async (req, res) => {
   try {  
     product = await res.store.products.id(req.params.productID)
     product.remove();
@@ -132,7 +137,7 @@ router.delete('/:id/products/:productID', getStore, async (req, res) => {
 })
  
 // update one product from one store
-router.patch('/:id/products/:productID', getStore, async (req, res) => {
+router.patch('/:id/products/:productID', getUserStore, async (req, res) => {
   try {
     product = await res.store.products.id(req.params.productID)
   
@@ -177,6 +182,23 @@ async function getStore(req, res, next) {
   res.store = store
   next()
 }
+
+// Middleware function for gettig store object by ID for a specific user
+//TODO: use req.body.userId to fetch correct vendor-id for the authenticated user
+async function getUserStore(req, res, next) {
+  try {
+    store = await Store.findById(req.params.id)
+    if (store == null) {
+      return res.status(404).json({ message: 'Cant find store' })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+
+  res.store = store
+  next()
+}
+
 
 // function to calculate area
 function calcCoords(lat, long, distance) {

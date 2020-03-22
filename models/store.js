@@ -6,7 +6,7 @@ const Product = require('./product').schema
 const OpeningHourSchema = new mongoose.Schema({
   day: {
     type: String,
-    enum: ['monday','truesday','wednesday','thirsday','friday','saturday','sunday','holiday'],
+    enum: ['monday','tuesday','wednesday','thursday','friday','saturday','sunday','holiday'],
     required: true
   },
   from: {

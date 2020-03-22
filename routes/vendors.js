@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const checkJwt = require('../auth0')
-
 const Vendor = require('../models/vendor')
 
 // get all vendors
@@ -36,7 +34,7 @@ router.post('/signup', async (req, res) => {
 })
 
 // Updating one vendor
-router.patch('/:id', checkJwt, getVendor, async (req, res) => {
+router.patch('/:id', getVendor, async (req, res) => {
   if (req.body.name != null) {
     res.vendor.name = req.body.name
   }
@@ -53,7 +51,7 @@ router.patch('/:id', checkJwt, getVendor, async (req, res) => {
 })
 
 // delete one vendor
-router.delete('/:id', checkJwt, getVendor, async (req, res) => {
+router.delete('/:id', getVendor, async (req, res) => {
   try {
     await res.vendor.remove()
     res.json({ message: 'Deleted This Vendor' })

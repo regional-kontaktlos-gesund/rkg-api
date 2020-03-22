@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const checkJwt = require('../auth0')
-
 const Store = require('../models/store')
 const Product = require('../models/product')
 
@@ -32,7 +30,7 @@ router.get('/:id/products', getStore, (req, res) => {
 })
 
 // create one store
-router.post('/', checkJwt, async (req, res) => {
+router.post('/', async (req, res) => {
   const store = new Store({
     name: req.body.name,
     vendor: req.body.vendor,
@@ -50,7 +48,7 @@ router.post('/', checkJwt, async (req, res) => {
 
 
 // add one product for one store
-router.patch('/:id/products', checkJwt, getStore, async (req, res) => {
+router.patch('/:id/products', getStore, async (req, res) => {
   const product = new Product({
     name: req.body.name,
     type: req.body.type,
@@ -70,7 +68,7 @@ router.patch('/:id/products', checkJwt, getStore, async (req, res) => {
 })
 
 // Updating one store
-router.patch('/:id', getStore, checkJwt, async (req, res) => {
+router.patch('/:id', getStore, async (req, res) => {
   if (req.body.name != null) {
     res.store.name = req.body.name
   }
@@ -102,7 +100,7 @@ router.patch('/:id', getStore, checkJwt, async (req, res) => {
 })
 
 // Delete one store
-router.delete('/:id', getStore, checkJwt, async (req, res) => {
+router.delete('/:id', getStore, async (req, res) => {
   try {
     await res.store.remove()
     res.json({ message: 'Deleted This Store' })
@@ -112,7 +110,7 @@ router.delete('/:id', getStore, checkJwt, async (req, res) => {
 })
 
 // delete one product from one store
-router.delete('/:id/products/:productID', checkJwt, getStore, async (req, res) => {
+router.delete('/:id/products/:productID', getStore, async (req, res) => {
   try {  
     product = await res.store.products.id(req.params.productID)
     product.remove();
@@ -124,7 +122,7 @@ router.delete('/:id/products/:productID', checkJwt, getStore, async (req, res) =
 })
  
 // update one product from one store
-router.patch('/:id/products/:productID', checkJwt, getStore, async (req, res) => {
+router.patch('/:id/products/:productID', getStore, async (req, res) => {
   try {
     product = await res.store.products.id(req.params.productID)
   

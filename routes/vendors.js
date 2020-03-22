@@ -4,6 +4,7 @@ const router = express.Router()
 const Vendor = require('../models/vendor')
 
 // get all vendors
+// TODO: remove this route completely?
 router.get('/', async (req, res) => {
   try {
     const vendors = await Vendor.find()
@@ -86,6 +87,7 @@ router.delete('/:id', getVendor, async (req, res) => {
 })
 
 // Middleware function for gettig vendor object by ID
+// TODO: restrict Vendor retrieval to current user from req.body.userId
 async function getVendor(req, res, next) {
   try {
     vendor = await Vendor.findById(req.params.id)

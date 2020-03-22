@@ -10,6 +10,7 @@ const Order = require('../models/order')
 const Store = require('../models/store')
 
 // get all orders
+// TODO: restrict Order retrieval to current user from req.body.userId
 router.get('/', async (req, res) => {
   try {
     const orders = await Order.find()
@@ -69,6 +70,7 @@ router.delete('/:id', getOrder, async (req, res) => {
 })
 
 // Middleware function for gettig order object by ID
+// TODO: restrict Order retrieval to current user from req.body.userId
 async function getOrder(req, res, next) {
   try {
     order = await Order.findById(req.params.id)

@@ -26,6 +26,37 @@ app.get('/', function (req, res) {
   res.send('OK');
 });
 
+// test route for user-profile
+app.get('/api/userprofile', checkJwt, function (req, res) {
+
+  let authtoken = req.headers.authorization.replace("Bearer ", "")
+  let userData
+
+  console.log(req.user)
+
+  var AuthenticationClient = require('auth0').AuthenticationClient;
+
+  var auth0 = new AuthenticationClient({
+    domain: process.env.AUTH0_DOMAIN,
+    clientId: process.env.AUTH0_CLIENT_ID
+  });
+
+  auth0.getProfile(authtoken, function (err, userInfo) {
+    if (err) {
+      console.log(err.message)
+    }    
+    console.log(userInfo)
+    userData = userInfo
+  });
+  console.log("userdata", userData)
+  if (userData == "Unauthorized") {
+    res.status(401).json({ message: userData })
+  } else {
+    res.status(200).json({ message: userData })
+  }
+  
+});
+
 // test route for authentication
 app.get('/api/authtest', checkJwt, function (req, res) {
   res.status(200).json({ message: "you are authenticated" })
@@ -47,5 +78,5 @@ app.use('/api/orders', ordersRouter)
 // run app
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${ PORT }`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });

@@ -33,6 +33,29 @@ router.post('/signup', async (req, res) => {
   }
 })
 
+// set stripeAccountID
+router.post('/:id/stripe', getVendor, async (req, res) => {
+  // Set your secret key. Remember to switch to your live secret key in production!
+  // See your keys here: https://dashboard.stripe.com/account/apikeys
+  const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+  const response = await stripe.oauth.token({
+    grant_type: 'authorization_code',
+    code: req.body.code,
+  });
+  if (response.error) {
+    res.status(400).json({ message: response.error_description })
+  }
+
+  res.vendor.stripeAccountId = response.stripe_user_id;
+  try {
+    const updatedVendor = await res.vendor.save()
+    res.json(updatedVendor)
+  } catch {
+    res.status(400).json({ message: err.message })
+  }
+})
+
 // Updating one vendor
 router.patch('/:id', getVendor, async (req, res) => {
   if (req.body.name != null) {
@@ -42,7 +65,7 @@ router.patch('/:id', getVendor, async (req, res) => {
     res.vendor.email = req.body.email
   }
   if (req.body.stripeAccountId != null) {
-    res.store.stripeAccountId = req.body.stripeAccountId
+    res.vendor.stripeAccountId = req.body.stripeAccountId
   }
   try {
     const updatedVendor = await res.vendor.save()

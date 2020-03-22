@@ -22,14 +22,11 @@ db.once('open', () => console.log('✅ Connected to database'))
 
 app.options('*', cors()) // include before other routes
 
-// basic GET route
-app.get('/', function (req, res) {
-  res.send('OK');
-});
-
 // test route for user-profile
 app.get('/api/userprofile', checkUser, function (req, res) {
-    res.status(200).json({ message: "you are a user" })
+  console.log(req.body)
+  res.send(req.body) 
+  //res.status(200).json({ message: "you are a user" })
 });
 
 // test route for authentication

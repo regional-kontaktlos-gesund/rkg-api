@@ -27,10 +27,10 @@ POST http://localhost:5000/api/stores
 Content-Type: application/json
 
 {
-  "name": "Hofladen Sonne",
-  "vendor": "5e761984ebd80d6f7c8d4990",
-  "latitude": "52.520008",
-  "longitude": "13.404954"
+  "name": "Bioladen Rübezahl - Südstadt",
+  "vendor": "5e7781fbc3f1c40004c7e5f3",
+  "latitude": "52.481659",
+  "longitude": "10.575843"
 }
 
 ###
@@ -40,14 +40,17 @@ DELETE http://localhost:5000/api/stores/5e764c0be18e3fa11b445c15
 
 ###
 
-PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c
+PATCH http://localhost:5000/api/stores/5e7785c3b177e23969941ecf
 Content-Type: application/json
 
 {
-  "vendor": "5e761984ebd80d6f7c8d4990",
-  "currentlyOpen" : false,
+  "currentlyOpen" : true,
   "openingHours": [
-    {"day": "monday", "from": "12", "to": "16"}
+    {"day": "monday", "from": "12", "to": "16"},
+    {"day": "tuesday", "from": "9", "to": "16"},
+    {"day": "wednesday", "from": "8", "to": "12"},
+    {"day": "thursday", "from": "8", "to": "12"},
+    {"day": "saturday", "from": "8", "to": "16"}
   ]
 }
 
@@ -62,14 +65,53 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products
+PATCH http://localhost:5000/api/stores/5e7785c3b177e23969941ecf/products
 Content-Type: application/json
 
 {
-      "name": "Schale saure Erdbeeren",
+      "name": "Schale Erdbeeren",
       "type": "Erdbeere",
       "unit": "250g",
       "price": "250",
       "stock": "full",
       "imageUrl": "https://images.pexels.com/photos/583840/pexels-photo-583840.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+}
+
+###
+PATCH http://localhost:5000/api/stores/5e7785c3b177e23969941ecf/products
+Content-Type: application/json
+
+{
+      "name": "Weißer Spargel",
+      "type": "Spargel",
+      "unit": "1 Bund 500g",
+      "price": "700",
+      "stock": "full",
+      "imageUrl": "https://images.pexels.com/photos/351679/pexels-photo-351679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+}
+
+###
+PATCH http://localhost:5000/api/stores/5e7785c3b177e23969941ecf/products
+Content-Type: application/json
+
+{
+      "name": "Grüner Spargel",
+      "type": "Spargel",
+      "unit": "1 Bund 500g",
+      "price": "800",
+      "stock": "full",
+      "imageUrl": "https://images.pexels.com/photos/351679/pexels-photo-351679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+}
+
+###
+PATCH http://localhost:5000/api/stores/5e778446b177e23969941ebd/products
+Content-Type: application/json
+
+{
+      "name": "Palette Erdbeeren",
+      "type": "Erdbeere",
+      "unit": "2 KG",
+      "price": "1000",
+      "stock": "full",
+      "imageUrl": "https://images.pexels.com/photos/351679/pexels-photo-351679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
 }

@@ -12,15 +12,15 @@ Content-Type: application/json
 {
   "items":[
     {
-      "product": "5e7660751a3f5eb1b025075d",
-      "amount": "10"
+      "product": "5e778288b177e23969941eb2",
+      "amount": "3"
     },
     {
-      "product": "5e7670c0e35d55c5893fb783",
+      "product": "5e7782efb177e23969941eb4",
       "amount": "5"
     }
   ],
-  "store": "5e7637033530e88ed953fd1c" 
+  "store": "5e778272b177e23969941eb1" 
 }
 
 ###

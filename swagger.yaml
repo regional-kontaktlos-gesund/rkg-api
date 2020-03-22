@@ -75,6 +75,36 @@ paths:
           description: "successful operation"
           schema:
             type: "string"
+  /vendors/{vendorID}/stripe:
+    post:
+      tags:
+      - "vendor"
+      summary: "submit stripe authorization code"
+      description: ""
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "vendorID"
+        in: "path"
+        description: "ID of the vendor"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "auhtorization code"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            code:
+              type: "string"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: OK
+    
   /stores:
     get:
       tags:

@@ -24,9 +24,7 @@ app.options('*', cors()) // include before other routes
 
 // test route for user-profile
 app.get('/api/userprofile', checkUser, function (req, res) {
-  console.log(req.body)
-  res.send(req.body) 
-  //res.status(200).json({ message: "you are a user" })
+  res.status(200).send(req.body) 
 });
 
 // test route for authentication

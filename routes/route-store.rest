@@ -1,6 +1,16 @@
 GET http://localhost:5000/api/stores
 ###
 
+GET http://localhost:5000/api/stores/radius?latitude=235.5&longitude=43.3&distance=4.3
+
+{
+  "latitude": 47.9959,
+  "longitude": 7.85222,
+  "distance": 300
+}
+
+###
+
 GET http://localhost:5000/api/stores/5e7637033530e88ed953fd1c/products
 
 ###

@@ -109,6 +109,30 @@ paths:
       responses:
         200:
           description: OK
+  /stores/radius:
+    get:
+      tags:
+      - "store"
+      summary: "Get all stores around specific position"
+      description: ""
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "user position"
+        required: true
+        schema:
+          $ref: '#/definitions/Position'
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Store"
   /stores/{storeID}:
     patch:
       tags:
@@ -304,9 +328,9 @@ definitions:
         items:
           $ref: '#/definitions/Product'
       openungHours:
-      	type: "array"
+        type: "array"
         items:
-        	$ref: "#/definitions/OpeningHour"
+          $ref: "#/definitions/OpeningHour"
       currentlyOpen:
         type: "boolean"
   Vendor:
@@ -378,3 +402,16 @@ definitions:
       price:
         type: "number"
         format: "int64"
+  Position:
+    type: "object"
+    properties:
+      latitude:
+        type: "number"
+        format: "double"
+      longitude:
+        type: "number"
+        format: "double"
+      radius:
+        type: "number"
+        format: "int64"
+        description: "radius in meter"

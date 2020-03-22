@@ -8,6 +8,13 @@ var app = express();
 const checkJwt = require('./middlewares/auth0')
 const checkUser = require('./middlewares/checkUser')
 
+//swagger stuff
+var swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//app.use('/api/', router);
+
 // register middlewares
 app.use(express.json())
 app.use(cors())
@@ -22,14 +29,9 @@ db.once('open', () => console.log('✅ Connected to database'))
 
 app.options('*', cors()) // include before other routes
 
-// basic GET route
-app.get('/', function (req, res) {
-  res.send('OK');
-});
-
 // test route for user-profile
 app.get('/api/userprofile', checkUser, function (req, res) {
-    res.status(200).json({ message: "you are a user" })
+  res.status(200).send(req.body) 
 });
 
 // test route for authentication

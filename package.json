@@ -31,7 +31,8 @@
     "express-jwt-authz": "^2.3.1",
     "jwks-rsa": "^1.7.0",
     "mongoose": "^5.9.5",
-    "stripe": "^8.33.0"
+    "stripe": "^8.33.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Erntefrisch-API</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+
+<body>
+    <h2>Erntefrisch API</h2>
+    <p>Willkommen auf unserer API-Seite!</p>
+
+    <h3>API Dokumentation</h3>
+    <a href="/api-docs">Swagger-Dokumentation </a>
+
+    <h3>Login Test</h3>
+       
+    <button id="btn-login" disabled="true" onclick="login()">Log in</button>
+    <button id="btn-logout" disabled="true" onclick="logout()">Log out</button>
+
+
+
+    <div class="hidden" id="gated-content">
+        <p>
+          Du kannst diesen Inhalt sehen, weil du gerade eingeloggt bist.
+          <strong>logged in</strong>.
+        </p>
+        <label>
+          Access token:
+          <pre id="ipt-access-token"></pre>
+        </label>
+        <label>
+          User profile:
+          <pre id="ipt-user-profile"></pre>
+        </label>
+      </div>
+
+    <!-- add the lines below existing code -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -26,12 +26,14 @@ router.get('/:id', getOrder, async (req, res) => {
   newItems = []
   for (const item of order.items) {
       store = await Store.findById(order.store)
-      newProduct = await store.products.id(item.product)
-      newItem = {
-        product: newProduct, 
-        amount: item.amount
+      if (store) {
+        newProduct = await store.products.id(item.product)
+        newItem = {
+          product: newProduct, 
+          amount: item.amount
+        }
+        newItems.push(newItem)
       }
-      newItems.push(newItem)
   };
   const newOrder = {
     items: newItems,

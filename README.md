@@ -14,3 +14,7 @@
 ## Deployment 
 
 Pull requests on master branch are automatically deployed to heroku: https://rkg-api-602.herokuapp.com/
+
+## API-DOC (SWAGGER)
+
+Find the API Docs at https://rkg-api-602.herokuapp.com/api-docs

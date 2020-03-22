@@ -4,6 +4,9 @@ const vendorSchema = new mongoose.Schema({
     name: {
       type: String,
       required: true
+    }, 
+    stripeAccountId: {
+      type: String
     },
     email: {
       type: String,

@@ -321,8 +321,6 @@ definitions:
       longitude:
         type: "number"
         format: "double"
-      stripeAccountId:
-        type: "string"
       products:
         type: "array"
         items:
@@ -337,6 +335,8 @@ definitions:
     type: "object"
     properties:
       name:
+        type: "string"
+      stripeAccountId:
         type: "string"
       email:
         type: "string"

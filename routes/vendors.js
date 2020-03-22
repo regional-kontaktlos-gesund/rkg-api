@@ -38,9 +38,11 @@ router.patch('/:id', getVendor, async (req, res) => {
   if (req.body.name != null) {
     res.vendor.name = req.body.name
   }
-
   if (req.body.email != null) {
     res.vendor.email = req.body.email
+  }
+  if (req.body.stripeAccountId != null) {
+    res.store.stripeAccountId = req.body.stripeAccountId
   }
   try {
     const updatedVendor = await res.vendor.save()

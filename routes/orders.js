@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const fs = require("fs");
+const animals = fs.readFileSync("./resources/animals.txt").toString('utf-8').split("\n")
+const colors = fs.readFileSync("./resources/colors.txt").toString('utf-8').split("\n")
 
-var fs = require("fs");
-var text = fs.readFileSync("./resources/words.txt").toString('utf-8');
-var textByLine = text.split("\n")
 
 const Order = require('../models/order')
 const Store = require('../models/store')
@@ -91,7 +91,7 @@ function getRandomInt(max) {
 }
 
 function generateCode() {
-  let codeword = textByLine[getRandomInt(textByLine.length)] + " " + textByLine[getRandomInt(textByLine.length)]
+  let codeword = colors[getRandomInt(colors.length)].toLowerCase() + "-" + animals[getRandomInt(animals.length)].toLowerCase()
   return codeword
 }
 

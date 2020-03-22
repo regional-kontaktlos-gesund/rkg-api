@@ -100,9 +100,6 @@ router.patch('/:id', getStore, async (req, res) => {
   if (req.body.latitude != null) {
     res.store.latitude = req.body.latitude
   }
-  if (req.body.stripeAccountId != null) {
-    res.store.stripeAccountId = req.body.stripeAccountId
-  }
   
   try {
     const updatedStore = await res.store.save()

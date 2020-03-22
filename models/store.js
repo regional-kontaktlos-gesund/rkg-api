@@ -36,9 +36,6 @@ const storeSchema = new mongoose.Schema({
     longitude: {
       type: Number,
       required: true
-    },  
-    stripeAccountId: {
-      type: String
     },
     products: [Product],
     openingHours: [OpeningHourSchema],

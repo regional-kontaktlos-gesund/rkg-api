@@ -19,6 +19,19 @@ router.get('/', async (req, res) => {
   }
 })
 
+// get all stores in specific area
+router.get('/radius', async (req, res) => {
+  try {
+    let stores
+    let coords
+    coords = calcCoords(req.body.latitude, req.body.longitude, req.body.distance)
+    stores = await Store.find().where('latitude').gt(coords.minLat).lt(coords.maxLat).where('longitude').gt(coords.minLong).lt(coords.maxLong)
+    res.json(stores)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 // getting one store
 router.get('/:id', getStore, (req, res) => {
   res.json(res.store)
@@ -166,6 +179,27 @@ async function getStore(req, res, next) {
 
   res.store = store
   next()
+}
+
+// function to calculate area
+function calcCoords(lat, long, distance) {
+  const distance_const = 111120
+  let latInMeter = distance_const
+  let meterInLat = 1 / latInMeter
+
+  let longInMeter = distance_const * Math.cos(lat * Math.PI / 180);
+  let meterInLong = 1 / longInMeter
+
+  let distanceInLat = distance * meterInLat
+  let distanceInLong = distance * meterInLong
+
+  let coords = {
+    minLat: lat - distanceInLat,
+    maxLat: lat + distanceInLat,
+    minLong: long - distanceInLong,
+    maxLong: long + distanceInLong
+  }
+  return coords
 }
 
 module.exports = router

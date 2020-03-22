@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+
 var fs = require("fs");
 var text = fs.readFileSync("./resources/words.txt").toString('utf-8');
 var textByLine = text.split("\n")

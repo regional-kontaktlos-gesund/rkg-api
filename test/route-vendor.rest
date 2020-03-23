@@ -1,13 +1,11 @@
-GET http://localhost:5000/api/vendors
 
-###
-
-GET http://localhost:5000/api/vendors/5e7627ebe87c1a7af2f09758
-
+GET http://localhost:5000/api/vendors/5e778e6bdd5943000467a0df
+authorization: Bearer _-dZageSHloOWS9gPu7TNhfO3rAax-55
 ###
 
 POST http://rkg-api-602.herokuapp.com/api/vendors/signup
 Content-Type: application/json
+
 
 {
   "name": "Robert Huber",
@@ -21,10 +19,10 @@ DELETE http://localhost:5000/api/vendors/5e761ba5385b4a71b6b9f295
 
 ###
 
-PATCH http://localhost:5000/api/vendors/5e761984ebd80d6f7c8d4990
+PATCH http://localhost:5000/api/vendors/5e778e6bdd5943000467a0df
 Content-Type: application/json
+authorization: Bearer _-dZageSHloOWS9gPu7TNhfO3rAax-55
 
 {
-  "name": "Robert Huber2",
-  "email": "r.huber2@example.com"
+  "name": "Super Duper"
 }

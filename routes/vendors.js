@@ -1,25 +1,15 @@
 const express = require('express')
 const router = express.Router()
-
+const checkUser = require('../middlewares/checkUser')
 const Vendor = require('../models/vendor')
 
-// get all vendors
-// TODO: remove this route completely?
-router.get('/', async (req, res) => {
-  try {
-    const vendors = await Vendor.find()
-    res.json(vendors)
-  } catch (err) {
-    res.status(500).json({ message: err.message })
-  }
-})
-
 // getting one vendor
-router.get('/:id', getVendor, (req, res) => {
+router.get('/:id', checkUser, getVendor, (req, res) => {
   res.json(res.vendor)
 })
 
 // create one vendor
+// TODO: create middleware to check of user has been created in auth0 and store user.id in database as well
 router.post('/signup', async (req, res) => {
   const vendor = new Vendor({
     name: req.body.name,
@@ -34,31 +24,9 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-// set stripeAccountID
-router.post('/:id/stripe', getVendor, async (req, res) => {
-  // Set your secret key. Remember to switch to your live secret key in production!
-  // See your keys here: https://dashboard.stripe.com/account/apikeys
-  const stripe = require('stripe')(process.env.STRIPE_KEY);
-
-  const response = await stripe.oauth.token({
-    grant_type: 'authorization_code',
-    code: req.body.code,
-  });
-  if (response.error) {
-    res.status(400).json({ message: response.error_description })
-  }
-
-  res.vendor.stripeAccountId = response.stripe_user_id;
-  try {
-    const updatedVendor = await res.vendor.save()
-    res.json(updatedVendor)
-  } catch {
-    res.status(400).json({ message: err.message })
-  }
-})
 
 // Updating one vendor
-router.patch('/:id', getVendor, async (req, res) => {
+router.patch('/:id', checkUser, getVendor, async (req, res) => {
   if (req.body.name != null) {
     res.vendor.name = req.body.name
   }
@@ -66,7 +34,15 @@ router.patch('/:id', getVendor, async (req, res) => {
     res.vendor.email = req.body.email
   }
   if (req.body.stripeAccountId != null) {
-    res.vendor.stripeAccountId = req.body.stripeAccountId
+    const stripe = require('stripe')(process.env.STRIPE_KEY);
+    const response = await stripe.oauth.token({
+      grant_type: 'authorization_code',
+      code: req.body.code,
+    });
+    if (response.error) {
+      res.status(400).json({ message: response.error_description })
+    }
+    res.vendor.stripeAccountId = response.stripe_user_id;
   }
   try {
     const updatedVendor = await res.vendor.save()
@@ -77,7 +53,8 @@ router.patch('/:id', getVendor, async (req, res) => {
 })
 
 // delete one vendor
-router.delete('/:id', getVendor, async (req, res) => {
+// TODO: delete vendor by auth0 hook
+router.delete('/:id', checkUser, getVendor, async (req, res) => {
   try {
     await res.vendor.remove()
     res.json({ message: 'Deleted This Vendor' })
@@ -87,19 +64,21 @@ router.delete('/:id', getVendor, async (req, res) => {
 })
 
 // Middleware function for gettig vendor object by ID
-// TODO: restrict Vendor retrieval to current user from req.body.userId
 async function getVendor(req, res, next) {
+  let vendor
   try {
-    vendor = await Vendor.findById(req.params.id)
-    if (vendor == null) {
-      return res.status(404).json({ message: 'Cant find vendor' })
+    if (req.body.vendorId == req.params.id) {
+      vendor = await Vendor.findById(req.body.vendorId)
     }
   } catch (err) {
     return res.status(500).json({ message: err.message })
   }
-
-  res.vendor = vendor
-  next()
+  if (vendor == null) {
+    return res.status(404).json({ message: 'Cant find vendor' })
+  } else {
+    res.vendor = vendor
+    next()
+  }
 }
 
 module.exports = router

@@ -15,14 +15,14 @@ const checkUser = async (req, res, next) => {
       if (err) {
         console.log(err.message)
       }
-      req.body.userId = "invalid"
+      req.body.vendorId = "invalid"
       req.body.userInfo = userInfo
 
       var query  = Vendor.where({ email: userInfo.email });
       await query.findOne(function (err, vendor) {
         if (err) return handleError(err);
         if (vendor) {
-          req.body.userId = vendor._id
+          req.body.vendorId = vendor._id
         }
       });
       next()
